@@ -27,7 +27,7 @@ RUN apt-get update && \
     make \
     nmap \
     whois \
-    python2.7 \
+    python2 \
     python-pip-whl \
     python3 \
     python3-pip \
@@ -35,6 +35,7 @@ RUN apt-get update && \
     nikto \
     dnsutils \
     net-tools \
+    ln -s /usr/bin/python2 /usr/bin/python \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Dependencies
