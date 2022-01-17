@@ -27,6 +27,8 @@ RUN apt-get update && \
     make \
     nmap \
     whois \
+    python2.7 \
+    python-pip-whl \
     python3 \
     python3-pip \
     perl \
