@@ -27,8 +27,6 @@ RUN apt-get update && \
     make \
     nmap \
     whois \
-    python \
-    python-pip \
     python3 \
     python3-pip \
     perl \
@@ -45,9 +43,9 @@ RUN apt-get update && \
     # dnsenum
     cpanminus \
     # wfuzz
-    python-pycurl \
+    python3-pycurl \
     # knock
-    python-dnspython \
+    python3-dnspython \
     # massdns
     libldns-dev \
     # wpcscan
