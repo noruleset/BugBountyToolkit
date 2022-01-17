@@ -69,19 +69,7 @@ RUN ln -fs /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime && \
     dpkg-reconfigure --frontend noninteractive tzdata
 
 # configure python(s)
-RUN python -m pip install --upgrade setuptools && python3 -m pip install --upgrade setuptools && python3.7 -m pip install --upgrade setuptools
-
-# dnsenum
-RUN cd ${HOME}/toolkit && \
-    git clone https://github.com/fwaeytens/dnsenum.git && \
-    cd dnsenum/ && \
-    chmod +x dnsenum.pl && \
-    ln -s ${HOME}/toolkit/dnsenum/dnsenum.pl /usr/bin/dnsenum && \
-    cpanm String::Random && \
-    cpanm Net::IP && \
-    cpanm Net::DNS && \
-    cpanm Net::Netmask && \
-    cpanm XML::Writer
+RUN python3 -m pip install --upgrade setuptools
 
 # Sublist3r
 RUN cd ${HOME}/toolkit && \
