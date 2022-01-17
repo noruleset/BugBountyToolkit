@@ -92,8 +92,8 @@ RUN cd ${HOME}/tools && \
     chmod +x setup.py && \
     apt-get update && apt-get install -y software-properties-common && \
     add-apt-repository ppa:deadsnakes/ppa && \
-    apt install python3.7 -y && \
-    python3.7 setup.py install
+    apt install python3 -y && \
+    python3 setup.py install
 
 # massdns
 RUN cd ${HOME}/tools && \
