@@ -1,15 +1,14 @@
-FROM ubuntu:18.04
+FROM kalilinux/kali-rolling
 
-LABEL maintainer="Alexis Ahmed"
+LABEL maintainer="noruleset"
 
 # Environment Variables
 ENV HOME /root
 ENV DEBIAN_FRONTEND=noninteractive
 
-
 # Working Directory
 WORKDIR /root
-RUN mkdir ${HOME}/toolkit && \
+RUN mkdir ${HOME}/tools && \
     mkdir ${HOME}/wordlists
 
 # Install Essentials
@@ -36,8 +35,6 @@ RUN apt-get update && \
     nikto \
     dnsutils \
     net-tools \
-    zsh\
-    nano\
     && rm -rf /var/lib/apt/lists/*
 
 # Install Dependencies
@@ -45,8 +42,6 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     # sqlmap
     sqlmap \
-    # dirb
-    dirb \
     # dnsenum
     cpanminus \
     # wfuzz
@@ -73,14 +68,10 @@ RUN apt-get update && \
     hydra \
     # dnsrecon
     dnsrecon \
-    # zsh
-    powerline\
-    # zsh
-    fonts-powerline\
     && rm -rf /var/lib/apt/lists/*
 
 # tzdata
-RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime && \
+RUN ln -fs /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime && \
     dpkg-reconfigure --frontend noninteractive tzdata
 
 # configure python(s)
@@ -136,13 +127,6 @@ RUN cd ${HOME}/toolkit && \
     chmod +x setup.py && \
     python setup.py install
 
-# wpscan
-RUN cd ${HOME}/toolkit && \
-    git clone https://github.com/wpscanteam/wpscan.git && \
-    cd wpscan/ && \
-    gem install bundler && bundle install --without test && \
-    gem install wpscan
-
 # commix 
 RUN cd ${HOME}/toolkit && \
     git clone https://github.com/commixproject/commix.git && \
@@ -172,14 +156,6 @@ RUN cd ${HOME}/toolkit && \
     chmod +x bucketeer.sh && \
     ln -sf ${HOME}/toolkit/teh_s3_bucketeers/bucketeer.sh /usr/local/bin/bucketeer
 
-# Recon-ng
-RUN cd ${HOME}/toolkit && \
-    git clone https://github.com/lanmaster53/recon-ng.git && \
-    cd recon-ng && \
-    pip3 install -r REQUIREMENTS && \
-    chmod +x recon-ng && \
-    ln -sf ${HOME}/toolkit/recon-ng/recon-ng /usr/local/bin/recon-ng
-
 # XSStrike
 RUN cd ${HOME}/toolkit && \
     git clone https://github.com/s0md3v/XSStrike.git && \
@@ -204,20 +180,11 @@ RUN cd ${HOME}/toolkit && \
     chmod +x cloudflair.py && \
     ln -sf ${HOME}/toolkit/CloudFlair/cloudflair.py /usr/local/bin/cloudflair
 
-# joomscan
-RUN cd ${HOME}/toolkit && \
-    git clone https://github.com/rezasp/joomscan.git && \
-    cd joomscan/ && \
-    chmod +x joomscan.pl
-COPY joomscan.sh /opt
-RUN chmod +x /opt/joomscan.sh && \
-    ln -sf /opt/joomscan.sh /usr/local/bin/joomscan
-
 # go
 RUN cd /opt && \
-    wget https://golang.org/dl/go1.16.4.linux-amd64.tar.gz && \
-    tar -xvf go1.16.4.linux-amd64.tar.gz && \
-    rm -rf /opt/go1.16.4.linux-amd64.tar.gz && \
+    wget https://go.dev/dl/go1.17.6.linux-amd64.tar.gz && \
+    tar -xvf go1.17.6.linux-amd64.tar.gz && \
+    rm -rf /opt/go1.17.6.linux-amd64.tar.gz && \
     mv go /usr/local 
 ENV GOROOT /usr/local/go
 ENV GOPATH /root/go
@@ -229,55 +196,12 @@ RUN cd ${HOME}/toolkit && \
     cd gobuster && \
     go get && go install
 
-# virtual-host-discovery
-RUN cd ${HOME}/toolkit && \
-    git clone https://github.com/AlexisAhmed/virtual-host-discovery.git && \
-    cd virtual-host-discovery && \
-    chmod +x scan.rb && \
-    ln -sf ${HOME}/toolkit/virtual-host-discovery/scan.rb /usr/local/bin/virtual-host-discovery
-
-# bucket_finder
-RUN cd ${HOME}/toolkit && \
-    git clone https://github.com/AlexisAhmed/bucket_finder.git && \
-    cd bucket_finder && \
-    chmod +x bucket_finder.rb && \
-    ln -sf ${HOME}/toolkit/bucket_finder/bucket_finder.rb /usr/local/bin/bucket_finder
-
-# dirsearch
-RUN cd ${HOME}/toolkit && \
-    git clone https://github.com/AlexisAhmed/dirsearch.git && \
-    cd dirsearch && \
-    chmod +x dirsearch.py && \
-    ln -sf ${HOME}/toolkit/dirsearch/dirsearch.py /usr/local/bin/dirsearch
-
 # s3recon
 RUN pip3 install --upgrade setuptools && \
     pip3 install pyyaml pymongo requests s3recon
 
 # subfinder
 RUN GO111MODULE=on go get -u -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder
-
-# zsh
-RUN git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh &&\
-    cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc &&\
-    chsh -s /bin/zsh && \
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.zsh-syntax-highlighting" --depth 1 && \
-    echo "source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> "$HOME/.zshrc"
-
-# dotdotpwn
-RUN cd ${HOME}/toolkit && \
-    cpanm Net::FTP && \
-    cpanm Time::HiRes && \
-    cpanm HTTP::Lite && \
-    cpanm Switch && \
-    cpanm Socket && \
-    cpanm IO::Socket && \
-    cpanm Getopt::Std && \
-    cpanm TFTP && \
-    git clone https://github.com/AlexisAhmed/dotdotpwn.git && \
-    cd dotdotpwn && \
-    chmod +x dotdotpwn.pl && \
-    ln -sf ${HOME}/toolkit/dotdotpwn/dotdotpwn.pl /usr/local/bin/dotdotpwn
 
 # whatweb
 RUN cd ${HOME}/toolkit && \
@@ -299,12 +223,6 @@ RUN cd ${HOME}/toolkit && \
     cd S3Scanner && \
     pip3 install -r requirements.txt
 
-# droopsecan
-RUN cd ${HOME}/toolkit && \
-    git clone https://github.com/droope/droopescan.git && \
-    cd droopescan && \
-    pip install -r requirements.txt
-
 # subjack
 RUN go get github.com/haccer/subjack
 
@@ -316,24 +234,35 @@ RUN cd ${HOME}/wordlists && \
     tar czf SecList.tar.gz ${HOME}/wordlists/SecLists/ && \
     rm -rf SecLists
 
-# ZSH configuration
-RUN export SHELL=/usr/bin/zsh && \
-    cd ${HOME} && \
-    rm .zshrc && \
-    wget https://raw.githubusercontent.com/AlexisAhmed/BugBountyToolkit-ZSH/main/.zshrc
-
 # ffuf
 RUN go get -u github.com/ffuf/ffuf
 
 # httprobe
 RUN go get -u github.com/tomnomnom/httprobe
 
+# assetfinder
+go get -u github.com/tomnomnom/assetfinder
+
+# gron
+go get -u github.com/tomnomnom/gron
+
+# meg
+go get -u github.com/tomnomnom/meg
+
+# gf
+go get -u github.com/tomnomnom/gf
+
+# anew
+go get -u github.com/tomnomnom/anew
+
+# fff
+go get -u github.com/tomnomnom/fff
+
 # gitGraber
 RUN cd ${HOME}/toolkit && \
     git clone https://github.com/hisxo/gitGraber.git && \
     cd gitGraber && \
     ln -sf ${HOME}/toolkit/gitGraber/gitGraber.py /usr/local/bin/gitGraber
-
 
 # waybackurls
 RUN go get github.com/tomnomnom/waybackurls
@@ -344,18 +273,7 @@ RUN cd ${HOME}/toolkit && \
     cd katoolin && \
     chmod +x katoolin.py
 
-
 # Clean Go Cache
 RUN go clean -cache && \
     go clean -testcache && \
     go clean -modcache
-
-
-
-
-
-
-    
-
-
-
