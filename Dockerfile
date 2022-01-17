@@ -128,14 +128,6 @@ RUN cd ${HOME}/tools && \
     make && \
     ln -sf ${HOME}/tools/masscan/bin/masscan /usr/local/bin/masscan    
 
-# altdns
-RUN cd ${HOME}/tools && \
-    git clone https://github.com/infosec-au/altdns.git && \
-    cd altdns && \
-    pip install -r requirements.txt && \
-    chmod +x setup.py && \
-    python setup.py install
-
 # teh_s3_bucketeers
 RUN cd ${HOME}/tools && \
     git clone https://github.com/tomdev/teh_s3_bucketeers.git && \
