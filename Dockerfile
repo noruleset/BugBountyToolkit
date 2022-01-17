@@ -241,22 +241,22 @@ RUN go get -u github.com/ffuf/ffuf
 RUN go get -u github.com/tomnomnom/httprobe
 
 # assetfinder
-go get -u github.com/tomnomnom/assetfinder
+RUN go get -u github.com/tomnomnom/assetfinder
 
 # gron
-go get -u github.com/tomnomnom/gron
+RUN go get -u github.com/tomnomnom/gron
 
 # meg
-go get -u github.com/tomnomnom/meg
+RUN go get -u github.com/tomnomnom/meg
 
 # gf
-go get -u github.com/tomnomnom/gf
+RUN go get -u github.com/tomnomnom/gf
 
 # anew
-go get -u github.com/tomnomnom/anew
+RUN go get -u github.com/tomnomnom/anew
 
 # fff
-go get -u github.com/tomnomnom/fff
+RUN go get -u github.com/tomnomnom/fff
 
 # gitGraber
 RUN cd ${HOME}/toolkit && \
