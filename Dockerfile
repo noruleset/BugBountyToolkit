@@ -143,14 +143,6 @@ RUN cd ${HOME}/tools && \
     chmod +x xsstrike.py && \
     ln -sf ${HOME}/tools/XSStrike/xsstrike.py /usr/local/bin/xsstrike
 
-# theHarvester
-RUN cd ${HOME}/tools && \
-    git clone https://github.com/AlexisAhmed/theHarvester.git && \
-    cd theHarvester && \
-    python3 -m pip install -r requirements.txt && \
-    chmod +x theHarvester.py && \
-    ln -sf ${HOME}/tools/theHarvester/theHarvester.py /usr/local/bin/theharvester
-
 # CloudFlair
 RUN cd ${HOME}/tools && \
     git clone https://github.com/christophetd/CloudFlair.git && \
