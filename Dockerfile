@@ -58,10 +58,6 @@ RUN apt-get update && \
     zlib1g-dev \
     # masscan
     libpcap-dev \
-    # theharvester
-    python3.7 \
-    # joomscan
-    libwww-perl \
     # hydra
     hydra \
     # dnsrecon
