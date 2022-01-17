@@ -29,13 +29,15 @@ RUN apt-get update && \
     whois \
     python2 \
     python-pip-whl \
+    python-setuptools \
     python3 \
     python3-pip \
+    python3-setuptools \
     perl \
     nikto \
     dnsutils \
     net-tools \
-    ln -s /usr/bin/python2 /usr/bin/python \
+    && ln -s /usr/bin/python2 /usr/bin/python \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Dependencies
