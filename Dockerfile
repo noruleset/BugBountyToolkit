@@ -7,7 +7,7 @@ ENV HOME /root
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Working Directory
-WORKDIR /root
+WORKDIR $HOME
 RUN mkdir ${HOME}/tools && \
     mkdir ${HOME}/wordlists
 
